@@ -1,14 +1,14 @@
 import { IPublicClientApplication } from "@azure/msal-browser";
-import "./App.css";
 import Home from "./components/Home";
 import { MsalProvider } from "@azure/msal-react";
 import { Route, Routes } from "react-router-dom";
+import { FunctionComponent } from "react";
 
 interface IAppProps {
   instance: IPublicClientApplication;
 }
 
-function App({ instance }: IAppProps) {
+const App: FunctionComponent<IAppProps> = ({ instance }) => {
   return (
     <div className="App">
       <MsalProvider instance={instance}>
@@ -18,6 +18,6 @@ function App({ instance }: IAppProps) {
       </MsalProvider>
     </div>
   );
-}
+};
 
 export default App;

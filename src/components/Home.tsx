@@ -3,9 +3,9 @@ import {
   UnauthenticatedTemplate,
   useMsal,
 } from "@azure/msal-react";
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 
-const Home = () => {
+const Home: FunctionComponent = () => {
   const { instance } = useMsal();
   const [idToken, setIdToken] = useState("");
 
