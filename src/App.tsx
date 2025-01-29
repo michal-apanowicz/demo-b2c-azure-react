@@ -1,21 +1,16 @@
-import { IPublicClientApplication } from "@azure/msal-browser";
 import Home from "./components/Home";
-import { MsalProvider } from "@azure/msal-react";
 import { Route, Routes } from "react-router-dom";
 import { FunctionComponent } from "react";
+import Logout from "./components/Logout";
 
-interface IAppProps {
-  instance: IPublicClientApplication;
-}
-
-const App: FunctionComponent<IAppProps> = ({ instance }) => {
+const App: FunctionComponent = () => {
   return (
     <div className="App">
-      <MsalProvider instance={instance}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </MsalProvider>
+      <Routes>
+        <Route path="logout" element={<Logout />} />
+        <Route path="admin" element={<Logout />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
     </div>
   );
 };

@@ -3,42 +3,46 @@ import {
   UnauthenticatedTemplate,
   useMsal,
 } from "@azure/msal-react";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 const Home: FunctionComponent = () => {
-  const { instance } = useMsal();
-  const [idToken, setIdToken] = useState("");
+  const { instance, accounts } = useMsal();
+  const [idToken, setIdToken] = useState(accounts?.[0]?.idToken);
 
-  const Login = async () => {
+  const login = async () => {
     try {
-      let { idToken } = await instance.loginPopup();
-      setIdToken(idToken);
+      await instance.loginPopup();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const Logout = async () => {
+  useEffect(() => {
+    setIdToken(accounts?.[0]?.idToken);
+  }, [accounts]);
+
+  const logout = async () => {
     try {
-      await instance.logoutPopup();
+      await instance.logoutRedirect();
       setIdToken("");
     } catch (error) {
       console.error(error);
     }
   };
+  const title = import.meta.env.VITE_APP_TITLE;
 
   return (
     <div className="home">
       <p className="text-center fs-5 fw-bold">
-        Authenticating a React App using Azure AD B2C
+        {title} - Authenticating a React App using Azure AD B2C
       </p>
       <AuthenticatedTemplate>
         <div className="alert alert-success" role="alert">
-          You are authenticated! 😊
+          You are authenticated! 😊 {accounts?.[0]?.name}
           <button
             type="button"
             className="btn btn-dark btn-sm float-end"
-            onClick={() => Logout()}
+            onClick={() => logout()}
           >
             Logout
           </button>
@@ -66,7 +70,7 @@ const Home: FunctionComponent = () => {
           <button
             type="button"
             className="btn btn-dark btn-sm float-end"
-            onClick={() => Login()}
+            onClick={() => login()}
           >
             Login
           </button>
