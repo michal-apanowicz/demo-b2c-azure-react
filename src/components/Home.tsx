@@ -32,30 +32,37 @@ const Home: FunctionComponent = () => {
   const title = import.meta.env.VITE_APP_TITLE;
 
   return (
-    <div className="home">
-      <p className="text-center fs-5 fw-bold">
+    <div className="home p-4">
+      <header className="text-center text-2xl font-bold mb-4">
         {title} - Authenticating a React App using Azure AD B2C
-      </p>
+      </header>
       <AuthenticatedTemplate>
-        <div className="alert alert-success" role="alert">
+        <div
+          className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 flex"
+          role="alert"
+        >
           You are authenticated! 😊 {accounts?.[0]?.name}
           <button
             type="button"
-            className="btn btn-dark btn-sm float-end"
+            className="bg-black text-white text-sm py-1 px-2 rounded float-right"
             onClick={() => logout()}
           >
             Logout
           </button>
         </div>
 
-        <div className="card">
-          <div className="card-header">Id Token</div>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">{idToken}</li>
-            <li className="list-group-item">
+        <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="bg-gray-200 px-4 py-2 font-semibold">Id Token</div>
+          <ul className="divide-y divide-gray-200">
+            <li className="px-4 py-2">{idToken}</li>
+            <li className="px-4 py-2">
               Paste the above on{" "}
               <span>
-                <a href="https://jwt.ms" target="_blank ">
+                <a
+                  href="https://jwt.ms"
+                  target="_blank"
+                  className="text-blue-500 underline"
+                >
                   jwt.ms
                 </a>
               </span>{" "}
@@ -65,11 +72,14 @@ const Home: FunctionComponent = () => {
         </div>
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
-        <div className="alert alert-warning" role="alert">
+        <div
+          className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4"
+          role="alert"
+        >
           You are not authenticated 🥺
           <button
             type="button"
-            className="btn btn-dark btn-sm float-end"
+            className="bg-black text-white text-sm py-1 px-2 rounded float-right"
             onClick={() => login()}
           >
             Login

@@ -1,19 +1,24 @@
-import { useMsal } from "@azure/msal-react";
 import { FunctionComponent, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Logout: FunctionComponent = () => {
-  const { accounts, instance } = useMsal();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (accounts.length > 0) {
-      //   instance.logoutPopup();
-    }
-  });
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
-    <div className="logout">
-      <p className="text-center fs-5 fw-bold">Looged out...</p>
+    <div className="logout flex justify-center items-center h-screen">
+      <div className="bg-blue-100 shadow-md rounded-lg p-6">
+        <p className="text-center text-lg font-bold">Logged out...</p>
+      </div>
     </div>
   );
 };
+
 export default Logout;
