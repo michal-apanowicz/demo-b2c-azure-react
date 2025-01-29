@@ -1,16 +1,30 @@
 import { FunctionComponent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMsal } from "@azure/msal-react";
 
 const Logout: FunctionComponent = () => {
   const navigate = useNavigate();
+  const { instance, accounts } = useMsal();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/");
-    }, 3000);
+    const performLogout = async () => {
+      if (accounts.length > 0) {
+        try {
+          await instance.logoutPopup();
+        } catch (error) {
+          console.error("Logout failed:", error);
+        }
+      }
 
-    return () => clearTimeout(timer);
-  }, [navigate]);
+      const timer = setTimeout(() => {
+        navigate("/");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    };
+
+    performLogout();
+  }, [instance, accounts, navigate]);
 
   return (
     <div className="logout flex justify-center items-center h-screen">
