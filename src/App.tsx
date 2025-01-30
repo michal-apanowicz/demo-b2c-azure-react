@@ -1,8 +1,8 @@
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import { FunctionComponent } from "react";
-import Admin from "./components/Admin";
-import Logout from "./components/Logout";
+import Admin from "./pages/Admin";
+import Logout from "./pages/Logout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: FunctionComponent = () => {

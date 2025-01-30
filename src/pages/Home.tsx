@@ -4,7 +4,8 @@ import {
   UnauthenticatedTemplate,
   useMsal,
 } from "@azure/msal-react";
-import HeaderBar from "./HeaderBar";
+import HeaderBar from "../components/HeaderBar";
+import { b2cPolicies, loginRequest } from "../config/authConfig";
 
 const Home: FunctionComponent = () => {
   const { instance, accounts } = useMsal();
@@ -18,7 +19,11 @@ const Home: FunctionComponent = () => {
 
   const handleLogin = async () => {
     try {
-      await instance.loginPopup();
+      const result = await instance.acquireTokenPopup({
+        ...loginRequest,
+        authority: b2cPolicies.authorities.signUpSignIn.authority,
+      });
+      console.log("APAN (handleLogin): ", result);
     } catch (error) {
       console.error("Login failed:", error);
     }

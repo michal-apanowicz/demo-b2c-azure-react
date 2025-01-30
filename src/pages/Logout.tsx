@@ -18,7 +18,7 @@ const Logout: FunctionComponent = () => {
 
       const timer = setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 50);
 
       return () => clearTimeout(timer);
     };
